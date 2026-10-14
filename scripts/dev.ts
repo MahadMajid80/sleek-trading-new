@@ -1,11 +1,15 @@
 import { spawn } from "node:child_process"
 
+import { config } from "dotenv"
+
 import { ensureLocalDatabase } from "./local-db"
+
+config({ path: [".env.local", ".env"], quiet: true })
 
 // `npm run dev`: start local Postgres (unless DATABASE_URL points elsewhere), then Next.js; stop both together.
 async function main() {
   const database = await ensureLocalDatabase()
-  if (database.started) console.log("PostgreSQL running on localhost:5433")
+  if (database.started) console.log(`PostgreSQL running on localhost:${process.env.LOCAL_DB_PORT || 5433}`)
 
   const next = spawn("npx", ["next", "dev", ...process.argv.slice(2)], { stdio: "inherit", env: process.env })
 

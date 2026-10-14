@@ -5,7 +5,7 @@ import { sql } from "drizzle-orm"
 
 import { ensureLocalDatabase } from "../../scripts/local-db"
 
-import { createDatabase, databaseUrl, LOCAL_DATABASE_URL } from "./client"
+import { createDatabase, databaseUrl, localDatabaseUrl } from "./client"
 import { runMigrations } from "./migrate"
 import { runSeed } from "./seed"
 
@@ -13,7 +13,7 @@ config({ path: [".env.local", ".env"], quiet: true })
 
 // Destructive: only ever allowed against the local development database.
 async function main() {
-  if (databaseUrl() !== LOCAL_DATABASE_URL) {
+  if (databaseUrl() !== localDatabaseUrl()) {
     throw new Error("db:reset only runs against the local development database. Unset DATABASE_URL to use it.")
   }
   const database = await ensureLocalDatabase()

@@ -8,7 +8,8 @@ import EmbeddedPostgres from "embedded-postgres"
 // data directory, and every Next.js worker, script and tool connects to it over TCP like it would in production.
 
 const DATA_DIR = path.resolve(".data/postgres")
-const PORT = 5433
+// Override with LOCAL_DB_PORT (e.g. in .env.local) when 5433 is taken by another server.
+const port = () => Number(process.env.LOCAL_DB_PORT || 5433)
 const DATABASE = "sleek"
 
 function isListening(port: number) {
@@ -28,11 +29,11 @@ function isListening(port: number) {
  */
 export async function ensureLocalDatabase(): Promise<{ started: boolean; stop: () => Promise<void> }> {
   if (process.env.DATABASE_URL) return { started: false, stop: async () => {} }
-  if (await isListening(PORT)) return { started: false, stop: async () => {} }
+  if (await isListening(port())) return { started: false, stop: async () => {} }
 
   const server = new EmbeddedPostgres({
     databaseDir: DATA_DIR,
-    port: PORT,
+    port: port(),
     user: "postgres",
     password: "postgres",
     persistent: true,

@@ -7,7 +7,7 @@ async function main() {
     console.log("A database is already running (or DATABASE_URL is set) — nothing to start.")
     return
   }
-  console.log("PostgreSQL running on localhost:5433 — press Ctrl+C to stop.")
+  console.log(`PostgreSQL running on localhost:${process.env.LOCAL_DB_PORT || 5433} — press Ctrl+C to stop.`)
   const stop = async () => {
     await database.stop()
     process.exit(0)
