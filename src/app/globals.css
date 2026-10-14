@@ -1,0 +1,214 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Type scale one notch larger than Tailwind's defaults (e.g. text-sm 14px → 15px) for easier reading. */
+@theme {
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: calc(1.125 / 0.8125);
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: calc(1.375 / 0.9375);
+  --text-base: 1.0625rem;
+  --text-base--line-height: calc(1.625 / 1.0625);
+  --text-lg: 1.1875rem;
+  --text-xl: 1.3125rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-code);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-brand-gold-light: var(--brand-gold-light);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-deep: var(--brand-gold-deep);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --animate-progress: progress 1.1s ease-in-out infinite;
+
+  @keyframes progress {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(300%);
+    }
+  }
+}
+
+:root {
+  /*
+   * One palette for both dashboards (staff and super admin), taken from dobrowvaluations.com.au:
+   * navy #0F2A4A (+ #1B3E63, #274A73), gold #C79A3D (+ #E8C77A), page #F7F8FA, text #1F2937 / #5B6472,
+   * borders #E7E9EE, 14px radius, soft navy card shadow, gold pill buttons with navy text.
+   */
+  --navy: #0f2a4a;
+  --navy-light: #1b3e63;
+  --navy-lighter: #274a73;
+  --navy-deep: #0a2038;
+  --gold: #c79a3d;
+  --gold-light: #e8c77a;
+  --gold-tint: #f0ebdd;
+  --brand-gold-light: var(--gold-light);
+  --brand-gold: var(--gold);
+  --brand-gold-deep: #9a7426;
+
+  --background: #f7f8fa;
+  --foreground: #1f2937;
+  --card: #ffffff;
+  --card-foreground: #1f2937;
+  --popover: #ffffff;
+  --popover-foreground: #1f2937;
+  --primary: var(--navy);
+  --primary-foreground: #ffffff;
+  --secondary: #eef1f5;
+  --secondary-foreground: var(--navy);
+  --muted: #eef1f5;
+  --muted-foreground: #5b6472;
+  --accent: var(--gold-tint);
+  --accent-foreground: var(--navy);
+  --destructive: oklch(0.577 0.245 27.325);
+  --success: oklch(0.58 0.14 155);
+  --warning: oklch(0.7 0.16 55);
+  --border: #e7e9ee;
+  --input: #e7e9ee;
+  --ring: var(--gold);
+  --chart-1: var(--navy);
+  --chart-2: var(--gold);
+  --chart-3: var(--navy-lighter);
+  --chart-4: var(--gold-light);
+  --chart-5: #5b6472;
+  --radius: 0.875rem;
+  --shadow-card: 0 10px 30px rgb(15 42 74 / 0.08);
+  /* Buttons: gold pill, navy text (as on the website). */
+  --btn-bg: var(--gold);
+  --btn-bg-hover: color-mix(in oklch, var(--btn-bg), white 12%);
+  --btn-fg: var(--navy);
+  --btn-radius: 999px;
+  --btn-radius-sm: 999px;
+  --sidebar: var(--navy);
+  --sidebar-foreground: #eaeff6;
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: var(--navy);
+  --sidebar-accent: var(--navy-light);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgb(255 255 255 / 0.1);
+  --sidebar-ring: var(--gold);
+  /* Super admin accents (eyebrows, icon tiles, backdrop) use the same gold/navy. */
+  --signal: var(--gold);
+  --signal-2: var(--navy-lighter);
+  --signal-ink: var(--navy);
+  --signal-text-from: #a87f2c;
+  --signal-text-to: var(--gold);
+  --grid-line: rgb(15 42 74 / 0.05);
+  --btn-glow: rgb(199 154 61 / 0.35);
+}
+
+/* The website has no dark mode; this keeps its navy + gold, with the deep navy as the page. */
+.dark {
+  --background: var(--navy-deep);
+  --foreground: #eaeff6;
+  --card: var(--navy);
+  --card-foreground: #eaeff6;
+  --popover: #102d50;
+  --popover-foreground: #eaeff6;
+  --primary: var(--gold-light);
+  --primary-foreground: var(--navy);
+  --secondary: var(--navy-light);
+  --secondary-foreground: #eaeff6;
+  --muted: var(--navy-light);
+  --muted-foreground: #c2ccda;
+  --accent: rgb(199 154 61 / 0.15);
+  --accent-foreground: var(--gold-light);
+  --destructive: oklch(0.704 0.191 22.216);
+  --success: oklch(0.72 0.14 155);
+  --warning: oklch(0.8 0.14 65);
+  --border: rgb(255 255 255 / 0.1);
+  --input: rgb(255 255 255 / 0.14);
+  --ring: var(--gold-light);
+  --chart-1: var(--gold);
+  --chart-2: #8fa0b8;
+  --chart-3: var(--gold-light);
+  --chart-4: #4f78a8;
+  --chart-5: #c2ccda;
+  --shadow-card: 0 10px 30px rgb(0 0 0 / 0.25);
+  --sidebar: #081a2e;
+  --sidebar-accent: var(--navy-light);
+  --sidebar-border: rgb(255 255 255 / 0.08);
+  --signal-2: #4f78a8;
+  --signal-text-from: var(--gold-light);
+  --signal-text-to: var(--gold);
+  --grid-line: rgb(255 255 255 / 0.04);
+}
+
+@layer components {
+  /* Gold eyebrow/highlight text (e.g. "SUPER ADMIN"). */
+  .signal-text {
+    background-image: linear-gradient(100deg, var(--signal-text-from), var(--signal-text-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-heading font-bold tracking-tight;
+  }
+}
