@@ -14,7 +14,8 @@ npm run dev          # starts PostgreSQL + Next.js on http://localhost:3000
 
 Local development runs a **real PostgreSQL 18** from the `embedded-postgres` npm package, so there's nothing to install
 (no Docker or Homebrew). Data lives in `.data/postgres`, and uploaded documents and receipts in `.data/uploads`. `npm run dev`
-starts the database and stops it again when you quit.
+starts the database and stops it again when you quit. It listens on port 5433; if that port is taken (for example by a Docker
+Postgres), set `LOCAL_DB_PORT` in `.env.local`.
 
 To use a hosted Postgres instead (Neon, Supabase, RDS…), copy `.env.example` to `.env.local` and set `DATABASE_URL`.
 Every script and the app then use that database, and nothing local is started.
